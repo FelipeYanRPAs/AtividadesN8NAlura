@@ -1,0 +1,158 @@
+{
+  "name": "Google Sheets",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "05e3259e-922f-417b-a93b-c624fd7490d0",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1UK2yDfvg28bOApT96g8x5JQ29CJqvFXqI_qFkMmtJX0/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1YhlJgJPqEQvMrrBlS0Oij1QUkZ5Q9wk5quNakZf79aA/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1db235ff-53b5-4b5d-8133-f63239551041",
+      "name": "Get row(s) in sheet",
+      "executeOnce": false,
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HQ6OppQDo7Ah9SGY",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1YhlJgJPqEQvMrrBlS0Oij1QUkZ5Q9wk5quNakZf79aA",
+          "mode": "list",
+          "cachedResultName": "DadosColados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YhlJgJPqEQvMrrBlS0Oij1QUkZ5Q9wk5quNakZf79aA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Dados",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YhlJgJPqEQvMrrBlS0Oij1QUkZ5Q9wk5quNakZf79aA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Produto",
+              "displayName": "Produto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Valor",
+              "displayName": "Valor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "10e93e42-214b-4d95-a1c7-6499aa7ec63b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HQ6OppQDo7Ah9SGY",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f5023382-dbf7-4814-aadf-a7af19a36ec7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6b21bb1ab7d389364369f9860c94b3e396e0fa7870b2f5762c95f841af3cfdd7"
+  },
+  "id": "7WEuvrHTMylaHuBv",
+  "tags": []
+}

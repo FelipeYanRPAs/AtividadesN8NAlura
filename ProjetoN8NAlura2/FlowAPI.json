@@ -1,0 +1,211 @@
+{
+  "name": "FlowAPI",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e2168a1f-5f42-4a2e-9ee0-1f79cdf3fc27",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://dummyjson.com/products?limit=5",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "593c4c5c-e859-48ff-a0da-8ec4b9a525a4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4751797f-ef50-4746-bf55-f974d2f72273",
+              "name": "ID",
+              "value": "={{ $json.products[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "839362ca-48b7-4e48-a314-68ac3afcb241",
+              "name": "NomeProduto",
+              "value": "={{ $json.products[0].title }}",
+              "type": "string"
+            },
+            {
+              "id": "5ead7fba-7b76-4359-982b-a89a8cc6caaa",
+              "name": "Preco",
+              "value": "={{ $json.products[0].price }}",
+              "type": "string"
+            },
+            {
+              "id": "db6c4014-bf5c-4393-967d-b660b13baf38",
+              "name": "Categoria",
+              "value": "={{ $json.products[0].category }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "dfbbd6c2-725e-41c0-b21e-cdf8f2a8255b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M",
+          "mode": "list",
+          "cachedResultName": "DadosAPI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "DadosAPI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "NomeProduto": "Essence Mascara Lash Princess",
+            "Preco": "9.99",
+            "ID": "1",
+            "Categoria": "beauty"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "NomeProduto",
+              "displayName": "NomeProduto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preco",
+              "displayName": "Preco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        0
+      ],
+      "id": "d1d07b09-d344-4a1a-ab17-7e9677e19247",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HQ6OppQDo7Ah9SGY",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6e3ecf65-ec9a-4d3d-91fe-7eb0ff7cafaf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6b21bb1ab7d389364369f9860c94b3e396e0fa7870b2f5762c95f841af3cfdd7"
+  },
+  "id": "SQvrYCulcLbmyL3F",
+  "tags": []
+}
