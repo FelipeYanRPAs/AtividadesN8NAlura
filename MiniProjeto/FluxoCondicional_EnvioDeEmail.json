@@ -1,0 +1,395 @@
+{
+  "name": "FluxoCondicional/EnvioDeEmail",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://dummyjson.com/products?limit=10",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        624,
+        0
+      ],
+      "id": "0333c2d2-b8b8-4814-8d77-13847df675b8",
+      "name": "HTTP Request",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "products",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        832,
+        0
+      ],
+      "id": "6ef53341-cd9c-4e0b-92c4-000b856d8cf6",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf124442-e455-4709-a4b3-46ae13e1dd26",
+              "name": "Nome",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "8d802d00-e66a-4242-8bed-0fd464140202",
+              "name": "Categoria",
+              "value": "={{ $json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "807c6f68-18e5-4731-a605-f1e911cdd943",
+              "name": "Preco",
+              "value": "={{ $json.price }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "9a93bcdc-aae7-43c2-a518-749f38a3c2d7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9c03c485-c55b-4b65-b7f3-07ce4498d6ce",
+              "leftValue": "={{ $json.Preco }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "00021f2f-70ac-42d4-816b-9f313a9811a9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M",
+          "mode": "list",
+          "cachedResultName": "DadosAPI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 523476816,
+          "mode": "list",
+          "cachedResultName": "ProdutosCaros",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit#gid=523476816"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preco",
+              "displayName": "Preco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1456,
+        -96
+      ],
+      "id": "5bd7de56-1954-40a5-aa12-0cf09fab30e0",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HQ6OppQDo7Ah9SGY",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M",
+          "mode": "list",
+          "cachedResultName": "DadosAPI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1138832624,
+          "mode": "list",
+          "cachedResultName": "ProdutosBaratos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit#gid=1138832624"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Categoria",
+              "displayName": "Categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preco",
+              "displayName": "Preco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1440,
+        112
+      ],
+      "id": "fe53dbb1-dedf-42d9-95fb-3995d87e4494",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HQ6OppQDo7Ah9SGY",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M",
+          "mode": "list",
+          "cachedResultName": "DadosAPI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1965538165,
+          "mode": "list",
+          "cachedResultName": "FaltasFuncionarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v1nNZBZy57mHiE7V4XDOQJmzrS9tHFdbU13lekxjM2M/edit#gid=1965538165"
+        },
+        "event": "rowUpdate",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "17f5261c-99f5-4000-9008-21da8fd3414b",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "C2ub3YUqfeqbuEmz",
+          "name": "Google Sheets Trigger OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "felipeyan.salsicha@gmail.com",
+        "subject": "Alerta de falta!!!",
+        "emailType": "text",
+        "message": "Hoje não foi registrado faltas!!!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "195685a1-1cb5-4690-a9f6-f3b4e7fa0cd6",
+      "name": "Send a message",
+      "webhookId": "d02e2421-427d-469e-ae2b-58b5aea82d2b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BX4mjy2hVq18D8zI",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "47b076c4-9ed5-4650-ad20-f33628ca183c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6b21bb1ab7d389364369f9860c94b3e396e0fa7870b2f5762c95f841af3cfdd7"
+  },
+  "id": "k4KVdCE7A2jXQ3UA",
+  "tags": []
+}
